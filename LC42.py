@@ -35,3 +35,23 @@ class Solution:
         
         
         return accum
+"""DP"""
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        left_max = [0 for _ in range(len(height))]
+        right_max = [0 for _ in range(len(height))] + [0]
+        
+        
+        for i in range(len(height)):
+            left_max[i] = max(left_max[i-1], height[i])
+            right_max[len(height)- 1 - i] = max(right_max[len(height)- 1 + 1 - i], height[len(height)- 1- i])
+            
+        print(left_max)
+        print(right_max)
+            
+        volume = 0
+        
+        for i in range(len(height)):
+            volume += (min(left_max[i], right_max[i]) - height[i])
+            
+        return volume
